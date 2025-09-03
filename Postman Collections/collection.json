@@ -139,13 +139,7 @@
 							},
 							"request": {
 								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "{{token}}",
-										"type": "text"
-									}
-								],
+								"header": [],
 								"body": {
 									"mode": "raw",
 									"raw": "{\n  \"username\": \"mila123@gm.com\",\n  \"password\": \"miWats\"\n}",
