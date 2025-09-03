@@ -520,6 +520,15 @@
 							"request": {
 								"method": "GET",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"timestamp\": \"2025-09-03T18:02:18.228Z\",\n  \"status\": 0,\n  \"error\": \"string\",\n  \"message\": {},\n  \"path\": \"string\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": "{{BaseURI}}/v1/contacts"
 							},
 							"response": []
