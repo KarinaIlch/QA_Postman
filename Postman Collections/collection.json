@@ -90,7 +90,60 @@
 				},
 				{
 					"name": "Negative",
-					"item": [],
+					"item": [
+						{
+							"name": "Login with wrong password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "40edbeef-1053-4f98-b25d-1e2d0d7b48eb",
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											"",
+											"pm.test(\"Response time is less than 200ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(800);",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Unauthorized\");",
+											"});",
+											"",
+											"pm.test(\"API message Login or Password incorrect\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"Login or Password incorrect\");",
+											"});",
+											"pm.test(\"Content-Type is present\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "0a95dd60-b576-4a73-bc62-2d965e31e545",
+										"exec": [],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "fa9f1e73-41be-4d29-9607-3fc96076cc89",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": []
+							},
+							"response": []
+						}
+					],
 					"id": "36342bc7-303a-4da2-99f0-23050b46ce28"
 				}
 			],
