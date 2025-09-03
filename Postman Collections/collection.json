@@ -97,13 +97,13 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "40edbeef-1053-4f98-b25d-1e2d0d7b48eb",
+										"id": "f6ac2373-32b3-4333-b906-f61c2b930241",
 										"exec": [
 											"pm.test(\"Status code is 401\", function () {",
 											"    pm.response.to.have.status(401);",
 											"});",
 											"",
-											"pm.test(\"Response time is less than 800ms\", function () {",
+											"pm.test(\"Response time is less than 200ms\", function () {",
 											"    pm.expect(pm.response.responseTime).to.be.below(800);",
 											"});",
 											"",
@@ -127,13 +127,16 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "ebe600ce-0d58-4f43-afbe-5ddcee6b02f4",
-										"exec": [],
-										"type": "text/javascript"
+										"id": "a2e121b7-132b-47b2-b8da-8a2e8990bb3b",
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
-							"id": "fa9f1e73-41be-4d29-9607-3fc96076cc89",
+							"id": "6fe5ce0b-825a-4dc0-8a66-4d550faf6ccf",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
@@ -149,7 +152,7 @@
 										}
 									}
 								},
-								"url": "{{BaseURI}}/v1/contacts"
+								"url": "https://ilcarro-backend.herokuapp.com/v1/user/login/usernamepassword"
 							},
 							"response": []
 						}
