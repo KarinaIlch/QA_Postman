@@ -1,0 +1,437 @@
+{
+	"info": {
+		"_postman_id": "e16ac4b5-3a55-46c7-9317-8fad43c296f2",
+		"name": "Phonebook",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Positive",
+					"item": [
+						{
+							"name": "Login registered user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "cb3c6188-f3bc-4a03-ba6c-9552a3c6a1a0",
+										"exec": [
+											"var jsonData = pm.response.json();",
+											"pm.environment.set(\"token\", jsonData.token);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "de6d6771-a387-4c0c-bd0c-87a3b282bbe1",
+										"exec": [],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "b4919cdc-ed46-44a3-be1b-d7f1d8f12f60",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"mila123@gm.com\",\n  \"password\": \"miWats1*\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BaseURI}}/v1/user/login/usernamepassword"
+							},
+							"response": []
+						}
+					],
+					"id": "404f1e66-7cc1-4fb2-870e-51b55e3f7495",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e4e54102-6c93-47b3-ae8e-852acf23ed3a",
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "dae93296-5ddc-43e8-b43f-ae99d753b688",
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Status code name has string: OK\", function () {",
+									"    pm.response.to.have.status(\"OK\");",
+									"});"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Negative",
+					"item": [],
+					"id": "36342bc7-303a-4da2-99f0-23050b46ce28"
+				}
+			],
+			"id": "2be3bc2f-5e1b-415e-9dd5-4080bb0e9192"
+		},
+		{
+			"name": "Contact",
+			"item": [
+				{
+					"name": "Positive",
+					"item": [
+						{
+							"name": "Get all user`s contacts before add",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5bf4f2da-534d-4255-91da-b7e897fd313c",
+										"exec": [
+											"let response = pm.response.json();",
+											"",
+											"if(response.contacts && response.contacts.lenght>0 && response.contacts[0].id) {",
+											"    let contactId = response.contacts[0].id;",
+											"    pm.environment.set(\"id\",contactId);",
+											"} else {",
+											"    console.warn(\"Contacts missing or no ID\");",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "92d405b2-2732-49c3-8fff-e35e6b8271b5",
+										"exec": [],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "fdac3d21-2a36-47f8-b257-dfb0984b2dca",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": "{{BaseURI}}/v1/contacts"
+							},
+							"response": []
+						},
+						{
+							"name": "Add contact",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c8303ef8-95c4-49e7-9113-e411c109c679",
+										"exec": [
+											"pm.test(\"Contact was added!\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"Contact was added!\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "cd817877-716f-4aa4-a96c-00433faf0c40",
+										"exec": [],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "290e9d1a-fcf5-48f0-ac57-e0ced1db2b9c",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Ron\",\n  \"lastName\": \"Wattson\",\n  \"email\": \"romwa23@gmail.com\",\n  \"phone\": \"123456789012\",\n  \"address\": \"Berlin\",\n  \"description\": \"goalkeeper\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BaseURI}}/v1/contacts"
+							},
+							"response": []
+						},
+						{
+							"name": "Get all user`s contacts after add",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "69611d37-78d7-46e6-a66e-4146e0c5a4cc",
+										"exec": [
+											"let response = pm.response.json();",
+											"let contactId = response.contacts[0].id;",
+											"pm.environment.set(\"id\",contactId);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "389bcd7b-0ed4-4fde-919c-75f5f9648e76",
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "9c667432-9681-47b2-97f5-82f49fb20b72",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": "{{BaseURI}}/v1/contacts"
+							},
+							"response": []
+						},
+						{
+							"name": "Modify created contact",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b7159b4f-dcfc-44fd-a5fd-1a10d11f7288",
+										"exec": [
+											"pm.test(\"Contact was updated\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"Contact was updated\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "d44df072-7cad-43e5-90f2-5c2529059d9a",
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "10d83288-8619-4f4f-b6d2-dfaaa9a8b2f5",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\":\"{{id}}\",\n  \"name\": \"Mark\",\n  \"lastName\": \"Wattson\",\n  \"email\": \"romwa23@gmail.com\",\n  \"phone\": \"123456789012\",\n  \"address\": \"Berlin\",\n  \"description\": \"goalkeeper\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BaseURI}}/v1/contacts"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete contact by ID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "907b09ff-b8bd-400f-aeee-4fddbb559fda",
+										"exec": [
+											"pm.test(\"Contact was deleted!\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"Contact was deleted!\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "88451845-2fdf-46fc-8514-ddc15b2dc854",
+										"exec": [
+											"pm.sendRequest({",
+											"    url: \"https://contactapp-telran-backend.herokuapp.com\",",
+											"    method: \"GET\",",
+											"    header:{",
+											"       \"Authorization\": pm.environment.get(\"token\")",
+											"    }",
+											"}, function(err,res){",
+											"    if(err) {",
+											"        console.error(\"Error while requesting contacts: \", err);",
+											"    } else {",
+											"        let data = res.json();",
+											"        if(data.contacts && data.contacts.lenght > 0) {",
+											"            let contactId = data.contacts[0].id;",
+											"            pm.environment.set(\"id\",contactId);",
+											"            console.log(\"Contact ID was saved: \" ,contactId);",
+											"        } else {",
+											"            console.warn(\"Contacts are missing in response\")",
+											"        }",
+											"    }",
+											"}); "
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "632f7b05-ec17-4beb-8f46-60a3d4bc8bad",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": "{{BaseURI}}/v1/contacts/{{id}}"
+							},
+							"response": []
+						}
+					],
+					"id": "1003e493-f499-4e1a-bade-c308f04d72a0",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c914782f-82b3-4981-83e4-1e4509cad60d",
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "d8aa39f6-522a-4470-9f49-1cf0d5c41bc3",
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Status code name has string: OK\", function () {",
+									"    pm.response.to.have.status(\"OK\");",
+									"});"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Negative",
+					"item": [],
+					"id": "d69264a1-7e83-416d-8ce0-0c8c761e4181"
+				}
+			],
+			"id": "361a9233-c7a7-42bf-aec0-268085e06881"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "bf024d3e-ca4e-4318-8490-1a4cd70731bc",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "9ae7014f-56c5-4738-af3e-533217db3e74",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"pm.test(\"Response time is less than 800ms\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(800);",
+					"});"
+				]
+			}
+		}
+	]
+}
