@@ -467,7 +467,55 @@
 				},
 				{
 					"name": "Negative",
-					"item": [],
+					"item": [
+						{
+							"name": "Get all user`s contacts before add Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5bf4f2da-534d-4255-91da-b7e897fd313c",
+										"exec": [
+											"let response = pm.response.json();",
+											"",
+											"if(response.contacts && response.contacts.lenght>0 && response.contacts[0].id) {",
+											"    let contactId = response.contacts[0].id;",
+											"    pm.environment.set(\"id\",contactId);",
+											"} else {",
+											"    console.warn(\"Contacts missing or no ID\");",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "92d405b2-2732-49c3-8fff-e35e6b8271b5",
+										"exec": [],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "c8a67216-7b05-4eea-b4c8-e94153186cf2",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": "{{BaseURI}}/v1/contacts"
+							},
+							"response": []
+						}
+					],
 					"id": "d69264a1-7e83-416d-8ce0-0c8c761e4181"
 				}
 			],
