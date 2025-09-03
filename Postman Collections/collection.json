@@ -524,6 +524,55 @@
 								"url": "{{BaseURI}}/v1/contacts"
 							},
 							"response": []
+						},
+						{
+							"name": "Add contact Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c8303ef8-95c4-49e7-9113-e411c109c679",
+										"exec": [
+											"pm.test(\"Contact was not added!\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"Contact was not added!\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "cd817877-716f-4aa4-a96c-00433faf0c40",
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "a32b1914-7f38-4c50-b051-45d1e96d4dae",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Ron\",\n  \"lastName\": \"Wattson\",\n  \"email\": \"romwa23@gmail.com\",\n  \"phone\": \"123456789012\",\n  \"address\": \"Berlin\",\n  \"description\": \"goalkeeper\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BaseURI}}/v1/contacts"
+							},
+							"response": []
 						}
 					],
 					"id": "d69264a1-7e83-416d-8ce0-0c8c761e4181"
