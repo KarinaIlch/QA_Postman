@@ -152,7 +152,7 @@
 										}
 									}
 								},
-								"url": "https://ilcarro-backend.herokuapp.com/v1/user/login/usernamepassword"
+								"url": "{{BaseURI}}/v1/user/login/usernamepassword"
 							},
 							"response": []
 						}
