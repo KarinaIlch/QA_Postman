@@ -485,7 +485,7 @@
 											"});",
 											"",
 											"pm.test(\"Status code name has string\", function () {",
-											"    pm.response.to.have.status(\"Ащкі\");",
+											"    pm.response.to.have.status(\"Forbidden\");",
 											"});",
 											""
 										],
