@@ -738,6 +738,77 @@
 								"url": "{{BaseURI}}/v1/contacts"
 							},
 							"response": []
+						},
+						{
+							"name": "Unable to modify created contact",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b7159b4f-dcfc-44fd-a5fd-1a10d11f7288",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Response time is less than 800ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(800);",
+											"});",
+											"",
+											"pm.test(\"Status code name has string: Bad Request\", function () {",
+											"    pm.response.to.have.status(\"Bad Request\");",
+											"});",
+											"",
+											"pm.test(\"API message (phone) contains\", function () {",
+											"  const msg = pm.response.json().message.phone;",
+											"  pm.expect(msg).to.be.a(\"string\");",
+											"  pm.expect(msg).to.include(\"must contain only digits\");",
+											"});",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "d44df072-7cad-43e5-90f2-5c2529059d9a",
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "d5a8476d-b375-40e2-8cf1-dc3acb6017ca",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\":\"{{id}}\",\n  \"name\": \"Mark\",\n  \"lastName\": \"Wattson\",\n  \"email\": \"romwa23@gmail.com\",\n  \"phone\": \"123456789012\",\n  \"address\": \"Berlin\",\n  \"description\": \"goalkeeper\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BaseURI}}/v1/contacts"
+							},
+							"response": []
 						}
 					],
 					"id": "d69264a1-7e83-416d-8ce0-0c8c761e4181"
