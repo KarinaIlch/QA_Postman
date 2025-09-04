@@ -867,7 +867,7 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "{{id}}",
+										"value": "{{token}}",
 										"type": "text"
 									}
 								],
