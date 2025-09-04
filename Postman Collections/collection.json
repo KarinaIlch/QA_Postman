@@ -677,21 +677,24 @@
 										"id": "c8303ef8-95c4-49e7-9113-e411c109c679",
 										"exec": [
 											"pm.test(\"Status code is 400\", function () {",
-											"    pm.response.to.have.status(403);",
+											"pm.response.to.have.status(400);",
 											"});",
 											"",
 											"pm.test(\"Response time is less than 800ms\", function () {",
 											"    pm.expect(pm.response.responseTime).to.be.below(800);",
 											"});",
 											"",
-											"pm.test(\"Status code name has string\", function () {",
+											"pm.test(\"Status code name has string: Bad Request\", function () {",
 											"    pm.response.to.have.status(\"Bad Request\");",
 											"});",
 											"",
-											"pm.test(\"API message (password) starts correctly\", function () {",
-											"  const msg = pm.response.json().message.password;",
-											"  pm.expect(msg).to.match(/^-?\\s?At least 8 characters/);",
+											"pm.test(\"API message (phone) contains\", function () {",
+											"  const msg = pm.response.json().message.phone;",
+											"  pm.expect(msg).to.be.a(\"string\");",
+											"  pm.expect(msg).to.include(\"must contain only digits\");",
 											"});",
+											"",
+											"",
 											""
 										],
 										"type": "text/javascript",
@@ -725,7 +728,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"name\": \"Ron\",\n  \"lastName\": \"Wattson\",\n  \"email\": \"romwa23@gmail.com\",\n  \"phone\": \"null\",\n  \"address\": \"Berlin\",\n  \"description\": \"goalkeeper\"\n}",
+									"raw": "{\n  \"name\": \"Ron\",\n  \"lastName\": \"Wattson\",\n  \"email\": \"romwa23@gmail.com\",\n  \"phone\": \"asgdgdhfhkg\",\n  \"address\": \"Berlin\",\n  \"description\": \"goalkeeper\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
