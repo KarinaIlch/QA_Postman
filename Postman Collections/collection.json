@@ -734,11 +734,11 @@
 											"    pm.response.to.have.status(\"Bad Request\");",
 											"});",
 											"",
-											"pm.test(\"API message (phone) contains\", function () {",
-											"  const msg = pm.response.json().message.phone;",
-											"  pm.expect(msg).to.be.a(\"string\");",
-											"  pm.expect(msg).to.include(\"must contain only digits\");",
+											"pm.test(\"API message is correct (phone)\", function () {",
+											"  const data = pm.response.json();",
+											"  pm.expect(data.message.phone).to.eql(\"Phone number must contain only digits! And length min 10, max 15!\");",
 											"});",
+											"",
 											"",
 											"",
 											""
@@ -853,6 +853,25 @@
 									}
 								},
 								"url": "{{BaseURI}}/v1/contacts"
+							},
+							"response": []
+						},
+						{
+							"name": "New Request",
+							"id": "4da48217-bef4-4c64-966e-ef8d73abb250",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{id}}",
+										"type": "text"
+									}
+								],
+								"url": "{{BaseURI}}/v1/contacts/{{id}}"
 							},
 							"response": []
 						}
