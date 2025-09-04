@@ -759,12 +759,17 @@
 											"    pm.response.to.have.status(\"Bad Request\");",
 											"});",
 											"",
-											"pm.test(\"API message (phone) contains\", function () {",
-											"  const msg = pm.response.json().message.phone;",
+											"pm.test(\"API message contains not-found text\", function () {",
+											"  const data = pm.response.json();",
+											"  const msg = data.message; // рядок: \"Contact with id: 44 not found in your contacts!\"",
 											"  pm.expect(msg).to.be.a(\"string\");",
-											"  pm.expect(msg).to.include(\"must contain only digits\");",
+											"  pm.expect(msg).to.include(\"not found\");",
 											"});",
 											"",
+											"",
+											"pm.test(\"Content-Type is present\", function () {",
+											"  pm.response.to.have.header(\"Content-Type\");",
+											"});",
 											"",
 											""
 										],
@@ -799,7 +804,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"id\":\"{{id}}\",\n  \"name\": \"Mark\",\n  \"lastName\": \"Wattson\",\n  \"email\": \"romwa23@gmail.com\",\n  \"phone\": \"123456789012\",\n  \"address\": \"Berlin\",\n  \"description\": \"goalkeeper\"\n}",
+									"raw": "{\n  \"id\":\"44\",\n  \"name\": \"Mark\",\n  \"lastName\": \"Wattson\",\n  \"email\": \"romwa23@gmail.com\",\n  \"phone\": \"123456789012\",\n  \"address\": \"Berlin\",\n  \"description\": \"goalkeeper\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
