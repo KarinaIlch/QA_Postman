@@ -164,8 +164,8 @@
 									"script": {
 										"id": "f6ac2373-32b3-4333-b906-f61c2b930241",
 										"exec": [
-											"pm.test(\"Status code is 401\", function () {",
-											"    pm.response.to.have.status(401);",
+											"pm.test(\"Status code is 409\", function () {",
+											"    pm.response.to.have.status(409);",
 											"});",
 											"",
 											"pm.test(\"Response time is less than 200ms\", function () {",
@@ -173,12 +173,12 @@
 											"});",
 											"",
 											"pm.test(\"Status code name has string\", function () {",
-											"    pm.response.to.have.status(\"Unauthorized\");",
+											"    pm.response.to.have.status(\"Conflict\");",
 											"});",
 											"",
-											"pm.test(\"API message User is already exist\", function () {",
+											"pm.test(\"API message User already exists\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.message).to.eql(\"User is already exist\");",
+											"    pm.expect(jsonData.message).to.eql(\"User already exists\");",
 											"});",
 											"pm.test(\"Content-Type is present\", function () {",
 											"    pm.response.to.have.header(\"Content-Type\");",
@@ -216,7 +216,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"username\": \"mila123@gm.com\",\n  \"password\": \"miWats\"\n}",
+									"raw": "{\n  \"username\": \"mila123@gm.com\",\n  \"password\": \"miWats1*\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -623,7 +623,7 @@
 											"    pm.response.to.have.status(403);",
 											"});",
 											"",
-											"pm.test(\"Response time is less than 200ms\", function () {",
+											"pm.test(\"Response time is less than 800ms\", function () {",
 											"    pm.expect(pm.response.responseTime).to.be.below(800);",
 											"});",
 											"",
@@ -653,7 +653,7 @@
 								"disableBodyPruning": true
 							},
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
