@@ -857,7 +857,47 @@
 							"response": []
 						},
 						{
-							"name": "New Request",
+							"name": "Contact not found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "dfdc59d0-ec28-4bdf-a620-a151dc325336",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Response time is less than 800ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(800);",
+											"});",
+											"",
+											"pm.test(\"Status code name has string: Bad Request\", function () {",
+											"    pm.response.to.have.status(\"Bad Request\");",
+											"});",
+											"",
+											"pm.test(\"API message is correct\", function () {",
+											"  const data = pm.response.json();",
+											"  pm.expect(data.message).to.eql(\"Contact with id: 95893a8d-a21c-4b6f-a375-04ff769b7e2d not found in your contacts!\");",
+											"});",
+											"",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "354da0b3-c6c5-4e60-9870-28c46a1fb21e",
+										"exec": [],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"id": "4da48217-bef4-4c64-966e-ef8d73abb250",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
