@@ -157,7 +157,7 @@
 							"response": []
 						},
 						{
-							"name": "User don`t exist",
+							"name": "User is already exist",
 							"event": [
 								{
 									"listen": "test",
@@ -176,9 +176,9 @@
 											"    pm.response.to.have.status(\"Unauthorized\");",
 											"});",
 											"",
-											"pm.test(\"API message User don’t exist\", function () {",
+											"pm.test(\"API message User is already exist\", function () {",
 											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.message).to.eql(\"User don’t exist\");",
+											"    pm.expect(jsonData.message).to.eql(\"User is already exist\");",
 											"});",
 											"pm.test(\"Content-Type is present\", function () {",
 											"    pm.response.to.have.header(\"Content-Type\");",
@@ -216,14 +216,85 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"username\": \"mila123@gm.de\",\n  \"password\": \"MiWats1*\"\n}",
+									"raw": "{\n  \"username\": \"mila123@gm.com\",\n  \"password\": \"miWats\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
 										}
 									}
 								},
-								"url": "{{BaseURI}}/v1/user/login/usernamepassword"
+								"url": "{{BaseURI}}/v1/user/registration/usernamepassword"
+							},
+							"response": []
+						},
+						{
+							"name": "Validation error due registration",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f6ac2373-32b3-4333-b906-f61c2b930241",
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											"",
+											"pm.test(\"Response time is less than 200ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(800);",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Unauthorized\");",
+											"});",
+											"",
+											"pm.test(\"API message User is already exist\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"User is already exist\");",
+											"});",
+											"pm.test(\"Content-Type is present\", function () {",
+											"    pm.response.to.have.header(\"Content-Type\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "a2e121b7-132b-47b2-b8da-8a2e8990bb3b",
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "b38d3829-6310-40b7-b1dd-e62c592478e0",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"mila123@gm.com\",\n  \"password\": \"miWats\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BaseURI}}/v1/user/registration/usernamepassword"
 							},
 							"response": []
 						}
